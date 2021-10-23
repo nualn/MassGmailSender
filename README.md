@@ -39,6 +39,6 @@ You also need a xls worksheet with the following structure:
 |and so           |on         |
 
 Run main.py and follow the instructions printed in the console.
-The second time you run main.py it will send emails according to the variables you have defined, to the emails in the worksheet, with the files from the worksheet (provided they exist in the folder you have determined) as attatchments. 
+The second time you run main.py it will send emails according to the variables you have defined, to the emails in the worksheet, with the files from the worksheet (provided they exist in the folder you have determined) as attachments. 
 
 
