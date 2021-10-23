@@ -1,2 +1,3 @@
 # Ignore config.py from this point on so variables can be added to the local file
 config.py
+*.xls
