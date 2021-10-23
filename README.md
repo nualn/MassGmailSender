@@ -8,7 +8,7 @@ A simple script to send mass emails with individually assigned pdf attachments.
 ### Installation
 Clone the repository:
 ```
-git clone https://github.com/nikkoln/MassGmailSender.git
+git clone https://github.com/nuanik/MassGmailSender.git
 ```
 Create a config.py file in the root folder.
 Add to it the following variables:
