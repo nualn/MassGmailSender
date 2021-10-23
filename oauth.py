@@ -7,7 +7,6 @@ https://developers.google.com/identity/protocols/OAuth2
 2. Generate a new access tokens using a refresh token(refresh_token)
 3. Generate an OAuth2 string to use for login (access_token)
 """
-import config
 
 import base64
 import imaplib
@@ -15,14 +14,6 @@ import json
 import smtplib
 import urllib.parse
 import urllib.request
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-
-# Added these 
-from email import encoders
-from email.mime.base import MIMEBase
-import xlrd
-
 
 GOOGLE_ACCOUNTS_BASE_URL = 'https://accounts.google.com'
 REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'

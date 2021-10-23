@@ -1,18 +1,6 @@
 
 import config
 
-import base64
-import imaplib
-import json
-import smtplib
-import urllib.parse
-import urllib.request
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-
-# Added these 
-from email import encoders
-from email.mime.base import MIMEBase
 import xlrd
 import oauth
 import mailService

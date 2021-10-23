@@ -1,19 +1,12 @@
-import config
 
-import base64
-import imaplib
-import json
+import config
+import oauth
+
 import smtplib
-import urllib.parse
-import urllib.request
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-
-# Added these 
-from email import encoders
 from email.mime.base import MIMEBase
-import xlrd
-import oauth
+from email import encoders
 
 def send_mail(fromaddr, toaddr, subject, body, filename):
     access_token, expires_in = oauth.refresh_authorization(config.GOOGLE_CLIENT_ID, config.GOOGLE_CLIENT_SECRET, config.GOOGLE_REFRESH_TOKEN)
