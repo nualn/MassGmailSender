@@ -2,7 +2,7 @@
 
 ## Description
 
-A simple script to send mass emails with custom attachments.
+A simple script to send mass emails with individually assigned pdf attachments.
 
 ## Getting started
 ### Installation
