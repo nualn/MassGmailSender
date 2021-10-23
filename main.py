@@ -3,9 +3,11 @@ import config
 
 import xlrd
 import oauth
-import mailService
+from mailService import send_mail
 
 if __name__ == '__main__':
+    # Check if the refresh token has been set 
+    # If not, fetch it 
     if config.GOOGLE_REFRESH_TOKEN is None:
         print('No refresh token found, obtaining one')
         refresh_token, access_token, expires_in = oauth.get_authorization(config.GOOGLE_CLIENT_ID, config.GOOGLE_CLIENT_SECRET)
@@ -18,10 +20,9 @@ if __name__ == '__main__':
     rows = sheet.nrows
     # Sending mails with a loop.
     i = 1
-    
     while i < rows and sheet.cell_value(i, 0) != "":
         print("Sending " + sheet.cell_value(i, 1) + " to " + sheet.cell_value(i, 0))
-        mailService.send_mail(
+        send_mail(
             config.SENDER, 
             sheet.cell_value(i, 0), 
             config.SUBJECT,
@@ -30,7 +31,6 @@ if __name__ == '__main__':
         )
         i += 1
     
-
     print("Sent " + str(i - 1) + " mails.")
 
 
