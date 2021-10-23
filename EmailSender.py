@@ -12,22 +12,14 @@ if __name__ == '__main__':
         print('Set the following as your GOOGLE_REFRESH_TOKEN:', refresh_token)
         exit()
 
-    # Replacing this with my own mail 
-    """
-    send_mail('skipolin.ensilumi@gmail.com', 'nuuttinikkola1@gmail.com',
-              'A mail from you from Python',
-              '<b>A mail from you from Python</b><br><br>' +
-              'So happy to hear from you!')
-    """
-
     # Open the excel file and read it
     wb = xlrd.open_workbook(config.XLS_LOC)
     sheet = wb.sheet_by_index(0)
-
+    rows = sheet.nrows
     # Sending mails with a loop.
     i = 1
-
-    while sheet.cell_value(i, 0) != "":
+    
+    while i < rows and sheet.cell_value(i, 0) != "":
         print("Sending " + sheet.cell_value(i, 1) + " to " + sheet.cell_value(i, 0))
         mailService.send_mail(
             config.SENDER, 
