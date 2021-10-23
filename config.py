@@ -13,4 +13,4 @@ XLS_LOC = 'mailsAndFiles.xls'
 GOOGLE_CLIENT_ID = ''
 GOOGLE_CLIENT_SECRET = ''
 # Token from when you first run the script
-GOOGLE_REFRESH_TOKEN = ''
+GOOGLE_REFRESH_TOKEN = None
