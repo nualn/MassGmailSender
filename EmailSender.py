@@ -7,6 +7,7 @@ https://developers.google.com/identity/protocols/OAuth2
 2. Generate a new access tokens using a refresh token(refresh_token)
 3. Generate an OAuth2 string to use for login (access_token)
 """
+import config
 
 import base64
 import imaplib
@@ -22,8 +23,11 @@ from email import encoders
 from email.mime.base import MIMEBase
 import xlrd
 
+
 GOOGLE_ACCOUNTS_BASE_URL = 'https://accounts.google.com'
 REDIRECT_URI = 'urn:ietf:wg:oauth:2.0:oob'
+
+
 
 def command_to_url(command):
     return '%s/%s' % (GOOGLE_ACCOUNTS_BASE_URL, command)
@@ -122,7 +126,7 @@ def send_mail(fromaddr, toaddr, subject, body, filename):
     # Add body to email
     message.attach(MIMEText(body, "plain"))
 
-    filepath = FILE_FOLDER + filename  # In same directory as script
+    filepath = config.FILE_FOLDER + filename  # In same directory as script
 
     # Open PDF file in binary mode
     with open(filepath, "rb") as attachment:
@@ -152,9 +156,9 @@ def send_mail(fromaddr, toaddr, subject, body, filename):
 
 
 if __name__ == '__main__':
-    if GOOGLE_REFRESH_TOKEN is None:
+    if config.GOOGLE_REFRESH_TOKEN is None:
         print('No refresh token found, obtaining one')
-        refresh_token, access_token, expires_in = get_authorization(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET)
+        refresh_token, access_token, expires_in = get_authorization(config.GOOGLE_CLIENT_ID, config.GOOGLE_CLIENT_SECRET)
         print('Set the following as your GOOGLE_REFRESH_TOKEN:', refresh_token)
         exit()
 
@@ -167,15 +171,15 @@ if __name__ == '__main__':
     """
 
     # Open the excel file and read it
-    wb = xlrd.open_workbook(XLS_LOC)
+    wb = xlrd.open_workbook(config.XLS_LOC)
     sheet = wb.sheet_by_index(0)
 
     ### Moved connection opening calls here so they're not called for each mail.
-    access_token, expires_in = refresh_authorization(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_REFRESH_TOKEN)
-    auth_string = generate_oauth2_string(SENDER, access_token, as_base64=True)
+    access_token, expires_in = refresh_authorization(config.GOOGLE_CLIENT_ID, config.GOOGLE_CLIENT_SECRET, config.GOOGLE_REFRESH_TOKEN)
+    auth_string = generate_oauth2_string(config.SENDER, access_token, as_base64=True)
 
     server = smtplib.SMTP('smtp.gmail.com:587')
-    server.ehlo(GOOGLE_CLIENT_ID)
+    server.ehlo(config.GOOGLE_CLIENT_ID)
     server.starttls()
     server.docmd('AUTH', 'XOAUTH2 ' + auth_string)
     ###
@@ -185,10 +189,10 @@ if __name__ == '__main__':
     while sheet.cell_value(i, 0) != "":
         print("Sending " + sheet.cell_value(i, 1) + " to " + sheet.cell_value(i, 0))
         send_mail(
-            SENDER, 
+            config.SENDER, 
             sheet.cell_value(i, 0), 
-            SUBJECT,
-            MSG_BODY,
+            config.SUBJECT,
+            config.MSG_BODY,
             sheet.cell_value(i, 1)
         )
         i += 1
